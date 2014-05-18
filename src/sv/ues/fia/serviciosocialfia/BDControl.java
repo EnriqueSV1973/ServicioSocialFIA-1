@@ -524,7 +524,8 @@ public class BDControl extends SQLiteOpenHelper {
 			valores.put("CARNETEMPLEADO", proyecto.getCarnetEmpleado());
 			valores.put("IDTIPODETRABAJO", proyecto.getIdTipoDeTrabajo());
 			valores.put("NOMBREDEPROYECTO", proyecto.getNombreDeProyecto());
-			valores.put("DESCRIPCIONPROYECTO", proyecto.getDescripcionProyecto());
+			valores.put("DESCRIPCIONPROYECTO",
+					proyecto.getDescripcionProyecto());
 			valores.put("DURACIONPROYECTO", proyecto.getDuracionProyecto());
 			valores.put("FECHAINICIOPROY", proyecto.getFechaInicioProy());
 			valores.put("FECHAFINPROY", proyecto.getFechaFinProy());
@@ -546,7 +547,7 @@ public class BDControl extends SQLiteOpenHelper {
 		}
 		return "La Base de Datos no existe";
 	}
-	
+
 	public String insertar(Registro registro) {
 		// Abriendo base de datos
 		SQLiteDatabase db = getWritableDatabase();
@@ -579,7 +580,7 @@ public class BDControl extends SQLiteOpenHelper {
 
 		return "La Base de Datos no existe";
 	}
-	
+
 	public String insertar(TipoDeProyecto tipoDeProyecto) {
 		// Abriendo base de datos
 		SQLiteDatabase db = getWritableDatabase();
@@ -590,7 +591,8 @@ public class BDControl extends SQLiteOpenHelper {
 		if (db != null) {
 			ContentValues valores = new ContentValues();
 			valores.put("IDTIPOPROYECTO", tipoDeProyecto.getIdTipoProyecto());
-			valores.put("MODALIDADPROYECTO",tipoDeProyecto.getModalidadProyecto());
+			valores.put("MODALIDADPROYECTO",
+					tipoDeProyecto.getModalidadProyecto());
 			contador = db.insert("TIPO_DE_PROYECTO", null, valores);
 
 			// Cerrando base de datos
@@ -646,11 +648,7 @@ public class BDControl extends SQLiteOpenHelper {
 
 		if (db != null) {
 			ContentValues valores = new ContentValues();
-			valores.put("CODIGOTUTOR", tutor.getCodigoTutor());
-			valores.put("IDBENEFICIARIO", tutor.getIdBeneficiario());
-			valores.put("NOMBRETUTOR", tutor.getNombreTutor());
-			valores.put("APELLIDOTUTOR", tutor.getApellidoTutor());
-			valores.put("SEXOTUTOR", tutor.getSexoTutor());
+
 			contador = db.insert("TUTOR", null, valores);
 			// Cerrando base de datos
 			db.close();
@@ -665,12 +663,420 @@ public class BDControl extends SQLiteOpenHelper {
 		}
 		return "La Base de Datos no existe";
 	}
+
 	// FIN de funciones de inserción de datos
 
-	
 	// Funciones de actualización de datos
 
-	
+	public String actualizar(AlumnoExpediente alumExp) {
+		// Abriendo la base de datos
+		SQLiteDatabase db = getWritableDatabase();
+
+		// Variables para controlar los registros insertados
+		long contador = 0;
+		String registrosModificados = "Registro modificado # = ";
+
+		if (db != null) {
+			ContentValues valores = new ContentValues();
+			valores.put("IDEXPEDIENTE", alumExp.getIdExpediente());
+			valores.put("IDBITACORA", alumExp.getIdBitacora());
+			valores.put("CARNETEMPLEADO", alumExp.getCarnetEmpleado());
+			valores.put("CODCARRERA", alumExp.getCodCarrera());
+			valores.put("CARNETALUMNO", alumExp.getCarnetAlumno());
+			valores.put("NOMBREALUMNO", alumExp.getNombreAlumno());
+			valores.put("APELLIDOALUMNO", alumExp.getApellidoAlumno());
+			valores.put("SEXOALUMNO", alumExp.getSexoAlumno());
+			valores.put("FECHAINICIOSERVICIO", alumExp.getFechaInicioServicio());
+			valores.put("FECHAFINSERVICIO", alumExp.getFechaFinServicio());
+			valores.put("ESTADOEXPEDIENTE", alumExp.getEstadoExpediente());
+			valores.put("TELEFONO", alumExp.getTelefono());
+			valores.put("EMAIL", alumExp.getEmail());
+			valores.put("OBSERVACIONES", alumExp.getObservaciones());
+			valores.put("VALORSERVICIO", alumExp.getValorServicio());
+			valores.put("HORASACUMULA", alumExp.getHorasAcumula());
+			valores.put("FECHAACUMULA", alumExp.getFechaAcumula());
+			contador = db.update("ALUMNOEXPEDIENTE", valores,
+					"CARNETEMPLEADO =" + alumExp.getCarnetAlumno(), null);
+
+			// Cerrando base de datos
+			db.close();
+
+			if (contador == -1 || contador == 0) {
+				registrosModificados = "Error al modificar el registro, Registro"
+						+ "Duplicado. Verificar modificación";
+			} else {
+				registrosModificados = registrosModificados + contador;
+			}
+			return registrosModificados;
+		}
+		return "La Base de Datos no existe";
+	}
+
+	public String actualizar(Beneficiario beneficiario) {
+		// Abriendo la base de datos
+		SQLiteDatabase db = getWritableDatabase();
+
+		// Variables para controlar los registros insertados
+		long contador = 0;
+		String registrosModificados = "Registro modificado # = ";
+
+		if (db != null) {
+			ContentValues valores = new ContentValues();
+			valores.put("IDBENEFICIARIO", beneficiario.getIdBeneficiario());
+			valores.put("CARNETEMPLEADO", beneficiario.getCarnetEmpleado());
+			valores.put("NOMBREORGANIZACION",
+					beneficiario.getNombreOrganizacion());
+			valores.put("NOMBREREPRESENTANTE",
+					beneficiario.getNombreRepresentante());
+			valores.put("APELLIDOREPRESENTANTE",
+					beneficiario.getApellidoRepresentante());
+			valores.put("TELEFONOBENEF", beneficiario.getTelefonoBenef());
+			valores.put("DIRECCIONBENEF", beneficiario.getDireccionBenef());
+			valores.put("EMAIL", beneficiario.getEmail());
+			contador = db.update("BENEFICIARIO", valores, "IDBENEFICIARIO ="
+					+ beneficiario.getIdBeneficiario(), null);
+
+			// Cerrando base de datos
+			db.close();
+
+			if (contador == -1 || contador == 0) {
+				registrosModificados = "Error al modificar el registro, Registro"
+						+ "Duplicado. Verificar modificación";
+			} else {
+				registrosModificados = registrosModificados + contador;
+			}
+			return registrosModificados;
+		}
+		return "La Base de Datos no existe";
+	}
+
+	public String actualizar(Bitacora bitacora) {
+		// Abriendo la base de datos
+		SQLiteDatabase db = getWritableDatabase();
+
+		// Variables para controlar los registros insertados
+		long contador = 0;
+		String registrosModificados = "Registro modificado # = ";
+
+		if (db != null) {
+			ContentValues valores = new ContentValues();
+			valores.put("IDBITACORA", bitacora.getIdBitacora());
+			valores.put("CODIGOTUTOR", bitacora.getCodigoTutor());
+			valores.put("ESTADOACTIVIDAD", bitacora.getEstadoActividad());
+			valores.put("FECHAAUTORIZADO", bitacora.getFechaAutorizado());
+			valores.put("VALORACTIVIDAD", bitacora.getValorActividad());
+			valores.put("PRECIOTRABAJO", bitacora.getPrecioTrabajo());
+			contador = db.update("BITACORA", valores,
+					"IDBITACORA =" + bitacora.getIdBitacora(), null);
+
+			// Cerrando base de datos
+			db.close();
+
+			if (contador == -1 || contador == 0) {
+				registrosModificados = "Error al modificar el registro, Registro"
+						+ "Duplicado. Verificar modificación";
+			} else {
+				registrosModificados = registrosModificados + contador;
+			}
+			return registrosModificados;
+		}
+		return "La Base de Datos no existe";
+	}
+
+	public String actualizar(Carreras carreras) {
+		// Abriendo la base de datos
+		SQLiteDatabase db = getWritableDatabase();
+
+		// Variables para controlar los registros insertados
+		long contador = 0;
+		String registrosModificados = "Registro modificado # = ";
+
+		if (db != null) {
+			ContentValues valores = new ContentValues();
+			valores.put("CODCARRERA", carreras.getCodCarrera());
+			valores.put("CODESCUELA", carreras.getCodEscuela());
+			valores.put("NOMBRECARRERA", carreras.getNombreCarrera());
+			contador = db.update("CARRERAS", valores,
+					"CODCARRERA =" + carreras.getCodCarrera(), null);
+
+			// Cerrando base de datos
+			db.close();
+
+			if (contador == -1 || contador == 0) {
+				registrosModificados = "Error al modificar el registro, Registro"
+						+ "Duplicado. Verificar modificación";
+			} else {
+				registrosModificados = registrosModificados + contador;
+			}
+			return registrosModificados;
+		}
+		return "La Base de Datos no existe";
+	}
+
+	public String actualizar(EncargadoDeServicioSocial encargado) {
+		// Abriendo la base de datos
+		SQLiteDatabase db = getWritableDatabase();
+
+		// Variables para controlar los registros insertados
+		long contador = 0;
+		String registrosModificados = "Registro modificado # = ";
+
+		if (db != null) {
+			ContentValues valores = new ContentValues();
+			valores.put("CARNETEMPLEADO", encargado.getCarnetEmpleado());
+			valores.put("CODESCUELA", encargado.getCodEscuela());
+			valores.put("NOMBREDIRECTOR", encargado.getNombreDirector());
+			valores.put("APELLIDODIRECTOR", encargado.getApellidoDirector());
+			valores.put("SEXODIRECTOR", encargado.getSexoDirector());
+			valores.put("FECHAINICIO", encargado.getFechaInicio());
+			valores.put("FECHAFIN", encargado.getFechaFin());
+			contador = db.update("DIRECTORSS", valores, "CARNETEMPLEADO ="
+					+ encargado.getCarnetEmpleado(), null);
+
+			// Cerrando base de datos
+			db.close();
+
+			if (contador == -1 || contador == 0) {
+				registrosModificados = "Error al modificar el registro, Registro"
+						+ "Duplicado. Verificar modificación";
+			} else {
+				registrosModificados = registrosModificados + contador;
+			}
+			return registrosModificados;
+		}
+		return "La Base de Datos no existe";
+	}
+
+	public String actualizar(Escuela escuela) {
+		// Abriendo la base de datos
+		SQLiteDatabase db = getWritableDatabase();
+
+		// Variables para controlar los registros insertados
+		long contador = 0;
+		String registrosModificados = "Registro modificado # = ";
+
+		if (db != null) {
+			ContentValues valores = new ContentValues();
+			valores.put("CODESCUELA", escuela.getCodEscuela());
+			valores.put("NOMBREESCUELA", escuela.getNombreEscuela());
+			contador = db.update("ESCUELA", valores,
+					"CODESCUELA =" + escuela.getCodEscuela(), null);
+
+			// Cerrando base de datos
+			db.close();
+
+			if (contador == -1 || contador == 0) {
+				registrosModificados = "Error al modificar el registro, Registro"
+						+ "Duplicado. Verificar modificación";
+			} else {
+				registrosModificados = registrosModificados + contador;
+			}
+			return registrosModificados;
+		}
+		return "La Base de Datos no existe";
+	}
+
+	public String actualizar(Informe informe) {
+		// Abriendo la base de datos
+		SQLiteDatabase db = getWritableDatabase();
+
+		// Variables para controlar los registros insertados
+		long contador = 0;
+		String registrosModificados = "Registro modificado # = ";
+
+		if (db != null) {
+			ContentValues valores = new ContentValues();
+			valores.put("CODIGOTUTOR", informe.getCodigoTutor());
+			valores.put("IDEXPEDIENTE", informe.getIdExpediente());
+			valores.put("CORRINFORME", informe.getCorrInforme());
+			valores.put("FECHAENTREGA", informe.getFechaEntrega());
+			valores.put("FECHAAUTORIZACION", informe.getFechaAutorizacion());
+			valores.put("OBJETIVOALCANZADO", informe.getObjetivoAlcanzado());
+			valores.put("COMENTARIOS", informe.getComentarios());
+			valores.put("TIPOINFORME", informe.getTipoInforme());
+			valores.put("ESTADO", informe.getEstado());
+			contador = db.update("INFORME", valores,
+					"CORRINFORME =" + informe.getCorrInforme(), null);
+
+			// Cerrando base de datos
+			db.close();
+
+			if (contador == -1 || contador == 0) {
+				registrosModificados = "Error al modificar el registro, Registro"
+						+ "Duplicado. Verificar modificación";
+			} else {
+				registrosModificados = registrosModificados + contador;
+			}
+			return registrosModificados;
+		}
+		return "La Base de Datos no existe";
+	}
+
+	public String actualizar(Precios precios) {
+		// Abriendo la base de datos
+		SQLiteDatabase db = getWritableDatabase();
+
+		// Variables para controlar los registros insertados
+		long contador = 0;
+		String registrosModificados = "Registro modificado # = ";
+
+		if (db != null) {
+			ContentValues valores = new ContentValues();
+			valores.put("CORR", precios.getCorr());
+			valores.put("IDTIPODETRABAJO", precios.getIdTipoDeTrabajo());
+			valores.put("PRECIO", precios.getPrecio());
+			valores.put("FECHAINICIALAPLIPRE", precios.getFechaInicialApliPre());
+			valores.put("FECHAFINALAPLIPRE", precios.getFechaFinalApliPre());
+			valores.put("OBSERVACION", precios.getObservacion());
+			contador = db.update("PRECIOS", valores,
+					"CORR =" + precios.getCorr(), null);
+
+			// Cerrando base de datos
+			db.close();
+
+			if (contador == -1 || contador == 0) {
+				registrosModificados = "Error al modificar el registro, Registro"
+						+ "Duplicado. Verificar modificación";
+			} else {
+				registrosModificados = registrosModificados + contador;
+			}
+			return registrosModificados;
+		}
+		return "La Base de Datos no existe";
+	}
+
+	public String actualizar(Proyecto proyecto) {
+		// Abriendo la base de datos
+		SQLiteDatabase db = getWritableDatabase();
+
+		// Variables para controlar los registros insertados
+		long contador = 0;
+		String registrosModificados = "Registro modificado # = ";
+
+		if (db != null) {
+			ContentValues valores = new ContentValues();
+			valores.put("IDPROYECTO", proyecto.getIdProyecto());
+			valores.put("IDBENEFICIARIO", proyecto.getIdBeneficiario());
+			valores.put("IDTIPOPROYECTO", proyecto.getIdTipoProyecto());
+			valores.put("CARNETEMPLEADO", proyecto.getCarnetEmpleado());
+			valores.put("IDTIPODETRABAJO", proyecto.getIdTipoDeTrabajo());
+			valores.put("NOMBREDEPROYECTO", proyecto.getNombreDeProyecto());
+			valores.put("DESCRIPCIONPROYECTO",
+					proyecto.getDescripcionProyecto());
+			valores.put("DURACIONPROYECTO", proyecto.getDuracionProyecto());
+			valores.put("FECHAINICIOPROY", proyecto.getFechaInicioProy());
+			valores.put("FECHAFINPROY", proyecto.getFechaFinProy());
+			valores.put("ESTADOPROYECTO", proyecto.getEstadoProyecto());
+			valores.put("ESTADOASIGNACION", proyecto.getEstadoAsignacion());
+			valores.put("VALORPROYECTO", proyecto.getValorProyecto());
+			contador = db.update("PROYECTO", valores,
+					"IDPROYECTO =" + proyecto.getIdProyecto(), null);
+
+			// Cerrando base de datos
+			db.close();
+
+			if (contador == -1 || contador == 0) {
+				registrosModificados = "Error al modificar el registro, Registro"
+						+ "Duplicado. Verificar modificación";
+			} else {
+				registrosModificados = registrosModificados + contador;
+			}
+			return registrosModificados;
+		}
+		return "La Base de Datos no existe";
+	}
+
+	public String actualizar(TipoDeProyecto tipoDeProyecto) {
+		// Abriendo la base de datos
+		SQLiteDatabase db = getWritableDatabase();
+
+		// Variables para controlar los registros insertados
+		long contador = 0;
+		String registrosModificados = "Registro modificado # = ";
+
+		if (db != null) {
+			ContentValues valores = new ContentValues();
+			valores.put("IDTIPOPROYECTO", tipoDeProyecto.getIdTipoProyecto());
+			valores.put("MODALIDADPROYECTO",
+					tipoDeProyecto.getModalidadProyecto());
+			contador = db.update("TIPODEPROYECTO", valores,
+					"IDTIPODEPROYECTO =" +  tipoDeProyecto.getIdTipoProyecto(), null);
+
+			// Cerrando base de datos
+			db.close();
+
+			if (contador == -1 || contador == 0) {
+				registrosModificados = "Error al modificar el registro, Registro"
+						+ "Duplicado. Verificar modificación";
+			} else {
+				registrosModificados = registrosModificados + contador;
+			}
+			return registrosModificados;
+		}
+		return "La Base de Datos no existe";
+	}
+
+	public String actualizar(TipoDeTrabajo tipoDeTrabajo) {
+		// Abriendo la base de datos
+		SQLiteDatabase db = getWritableDatabase();
+
+		// Variables para controlar los registros insertados
+		long contador = 0;
+		String registrosModificados = "Registro modificado # = ";
+
+		if (db != null) {
+			ContentValues valores = new ContentValues();
+			valores.put("IDTIPODETRABAJO", tipoDeTrabajo.getIdTipoDeTrabajo());
+			valores.put("NOMBRETIPO", tipoDeTrabajo.getNombreTipo());
+			contador = db.update("TIPODETRABAJO", valores,
+					"IDTIPODETRABAJO =" + tipoDeTrabajo.getIdTipoDeTrabajo(), null);
+
+			// Cerrando base de datos
+			db.close();
+
+			if (contador == -1 || contador == 0) {
+				registrosModificados = "Error al modificar el registro, Registro"
+						+ "Duplicado. Verificar modificación";
+			} else {
+				registrosModificados = registrosModificados + contador;
+			}
+			return registrosModificados;
+		}
+		return "La Base de Datos no existe";
+	}
+
+	public String actualizar(Tutor tutor) {
+		// Abriendo la base de datos
+		SQLiteDatabase db = getWritableDatabase();
+
+		// Variables para controlar los registros insertados
+		long contador = 0;
+		String registrosModificados = "Registro modificado # = ";
+
+		if (db != null) {
+			ContentValues valores = new ContentValues();
+			valores.put("CODIGOTUTOR", tutor.getCodigoTutor());
+			valores.put("IDBENEFICIARIO", tutor.getIdBeneficiario());
+			valores.put("NOMBRETUTOR", tutor.getNombreTutor());
+			valores.put("APELLIDOTUTOR", tutor.getApellidoTutor());
+			valores.put("SEXOTUTOR", tutor.getSexoTutor());
+			contador = db.update("TUTOR", valores,
+					"CODIGOTUTOR =" + tutor.getCodigoTutor(), null);
+
+			// Cerrando base de datos
+			db.close();
+
+			if (contador == -1 || contador == 0) {
+				registrosModificados = "Error al modificar el registro, Registro"
+						+ "Duplicado. Verificar modificación";
+			} else {
+				registrosModificados = registrosModificados + contador;
+			}
+			return registrosModificados;
+		}
+		return "La Base de Datos no existe";
+	}
+
 	// FIN de funciones de actualización de datos
 
 	// Funciones de eliminación de datos
