@@ -1,5 +1,6 @@
 package sv.ues.fia.serviciosocialfia;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -16,7 +17,7 @@ public class BDControl extends SQLiteOpenHelper {
 
 	// TABLA: ALUMNOEXPEDIENTE
 	private static final String TABLA_ALUMNOEXPEDIENTE = "create table ALUMNOEXPEDIENTE "
-			+ "(IDEXPEDIENTE         CHAR(10)             not null,"
+			+ "(IDEXPEDIENTE        CHAR(10)             not null,"
 			+ "IDBITACORA           CHAR(10)             not null,"
 			+ "CARNETEMPLEADO       CHAR(7),"
 			+ "CODCARRERA           CHAR(4)              not null,"
@@ -105,7 +106,8 @@ public class BDControl extends SQLiteOpenHelper {
 			+ "CORR                 INTEGER              not null,"
 			+ "PRECIO               FLOAT                not null,"
 			+ "FECHAINICIALAPLIPRE  CHAR(10)             not null,"
-			+ "FECHAFINALAPLIPRE    CHAR(10) ," + "OBSERVACION          CHAR(25),"
+			+ "FECHAFINALAPLIPRE    CHAR(10) ,"
+			+ "OBSERVACION          CHAR(25),"
 			+ "constraint PK_PRECIOS primary key (CORR));";
 
 	// TABLA: PROYECTO
@@ -129,8 +131,10 @@ public class BDControl extends SQLiteOpenHelper {
 			+ "(IDPROYECTO           CHAR(10)             not null,"
 			+ "IDEXPEDIENTE         CHAR(10),"
 			+ "IDBITACORA           CHAR(10)             not null,"
-			+ "HORAINICIO           CHAR(10) ," + "HORAFIN              CHAR(5) ,"
-			+ "FECHAACTIVIDAD       CHAR(10) ," + "CANTIDADHORAS        INTEGER,"
+			+ "HORAINICIO           CHAR(10) ,"
+			+ "HORAFIN              CHAR(5) ,"
+			+ "FECHAACTIVIDAD       CHAR(10) ,"
+			+ "CANTIDADHORAS        INTEGER,"
 			+ "constraint PK_REGISTRO primary key (IDPROYECTO, IDBITACORA));";
 
 	// TABLA: TIPO_DE_PROYECTO
@@ -206,10 +210,467 @@ public class BDControl extends SQLiteOpenHelper {
 
 	// Funciones de inserción de datos
 
+	public String insertar(AlumnoExpediente alumExp) {
+
+		// Abriendo la base de datos
+		SQLiteDatabase db = getWritableDatabase();
+
+		// Variables para controlar los registros insertados
+		long contador = 0;
+		String registrosInsertados = "Registro insertado # = ";
+
+		if (db != null) {
+			ContentValues valores = new ContentValues();
+			valores.put("IDEXPEDIENTE", alumExp.getIdExpediente());
+			valores.put("IDBITACORA", alumExp.getIdBitacora());
+			valores.put("CARNETEMPLEADO", alumExp.getCarnetEmpleado());
+			valores.put("CODCARRERA", alumExp.getCodCarrera());
+			valores.put("CARNETALUMNO", alumExp.getCarnetAlumno());
+			valores.put("NOMBREALUMNO", alumExp.getNombreAlumno());
+			valores.put("APELLIDOALUMNO", alumExp.getApellidoAlumno());
+			valores.put("SEXOALUMNO", alumExp.getSexoAlumno());
+			valores.put("FECHAINICIOSERVICIO", alumExp.getFechaInicioServicio());
+			valores.put("FECHAFINSERVICIO", alumExp.getFechaFinServicio());
+			valores.put("ESTADOEXPEDIENTE", alumExp.getEstadoExpediente());
+			valores.put("TELEFONO", alumExp.getTelefono());
+			valores.put("EMAIL", alumExp.getEmail());
+			valores.put("OBSERVACIONES", alumExp.getObservaciones());
+			valores.put("VALORSERVICIO", alumExp.getValorServicio());
+			valores.put("HORASACUMULA", alumExp.getHorasAcumula());
+			valores.put("FECHAACUMULA", alumExp.getFechaAcumula());
+			contador = db.insert("ALUMNOEXPEDIENTE", null, valores);
+
+			// Cerrando base de datos
+			db.close();
+
+			if (contador == -1 || contador == 0) {
+				registrosInsertados = "Error al Insertar el registro, Registro"
+						+ "Duplicado. Verificar inserción";
+			} else {
+				registrosInsertados = registrosInsertados + contador;
+			}
+			return registrosInsertados;
+		}
+		return "La Base de Datos no existe";
+	}
+
+	public String insertar(Asignacion asignacion) {
+
+		// Abriendo la base de datos
+		SQLiteDatabase db = getWritableDatabase();
+
+		// Variables para controlar los registros insertados
+		long contador = 0;
+		String registrosInsertados = "Registro insertado # = ";
+
+		if (db != null) {
+			ContentValues valores = new ContentValues();
+			valores.put("IDPROYECTO", asignacion.getIdProyecto());
+			valores.put("IDEXPEDIENTE", asignacion.getIdExpediente());
+			contador = db.insert("ASIGNACION", null, valores);
+
+			// Cerrando base de datos
+			db.close();
+
+			if (contador == -1 || contador == 0) {
+				registrosInsertados = "Error al Insertar el registro, Registro"
+						+ "Duplicado. Verificar inserción";
+			} else {
+				registrosInsertados = registrosInsertados + contador;
+			}
+			return registrosInsertados;
+		}
+		return "La Base de Datos no existe";
+	}
+
+	public String insertar(Beneficiario beneficiario) {
+		// Abriendo base de datos
+		SQLiteDatabase db = getWritableDatabase();
+		// Variables para controlar los registros insertados
+		long contador = 0;
+		String registrosInsertados = "Registro insertado # = ";
+
+		if (db != null) {
+			ContentValues valores = new ContentValues();
+			valores.put("IDBENEFICIARIO", beneficiario.getIdBeneficiario());
+			valores.put("CARNETEMPLEADO", beneficiario.getCarnetEmpleado());
+			valores.put("NOMBREORGANIZACION",
+					beneficiario.getNombreOrganizacion());
+			valores.put("NOMBREREPRESENTANTE",
+					beneficiario.getNombreRepresentante());
+			valores.put("APELLIDOREPRESENTANTE",
+					beneficiario.getApellidoRepresentante());
+			valores.put("TELEFONOBENEF", beneficiario.getTelefonoBenef());
+			valores.put("DIRECCIONBENEF", beneficiario.getDireccionBenef());
+			valores.put("EMAIL", beneficiario.getEmail());
+			contador = db.insert("BENEFICIARIO", null, valores);
+
+			// Cerrando base de datos
+			db.close();
+
+			if (contador == -1 || contador == 0) {
+				registrosInsertados = "Error al Insertar el registro, Registro"
+						+ "Duplicado. Verificar inserción";
+			} else {
+				registrosInsertados = registrosInsertados + contador;
+			}
+			return registrosInsertados;
+		}
+
+		return "La Base de Datos no existe";
+	}
+
+	public String insertar(Bitacora bitacora) {
+		// Abriendo base de datos
+		SQLiteDatabase db = getWritableDatabase();
+		// Variables para controlar los registros insertados
+		long contador = 0;
+		String registrosInsertados = "Registro insertado # = ";
+
+		if (db != null) {
+			ContentValues valores = new ContentValues();
+			valores.put("IDBITACORA", bitacora.getIdBitacora());
+			valores.put("CODIGOTUTOR", bitacora.getCodigoTutor());
+			valores.put("ESTADOACTIVIDAD", bitacora.getEstadoActividad());
+			valores.put("FECHAAUTORIZADO", bitacora.getFechaAutorizado());
+			valores.put("VALORACTIVIDAD", bitacora.getValorActividad());
+			valores.put("PRECIOTRABAJO", bitacora.getPrecioTrabajo());
+			contador = db.insert("BITACORA", null, valores);
+
+			// Cerrando base de datos
+			db.close();
+
+			if (contador == -1 || contador == 0) {
+				registrosInsertados = "Error al Insertar el registro, Registro"
+						+ "Duplicado. Verificar inserción";
+			} else {
+				registrosInsertados = registrosInsertados + contador;
+			}
+			return registrosInsertados;
+		}
+
+		return "La Base de Datos no existe";
+	}
+
+	public String insertar(Carreras carreras) {
+		// Abriendo base de datos
+		SQLiteDatabase db = getWritableDatabase();
+		// Variables para controlar los registros insertados
+		long contador = 0;
+		String registrosInsertados = "Registro insertado # = ";
+
+		if (db != null) {
+			ContentValues valores = new ContentValues();
+			valores.put("CODCARRERA", carreras.getCodCarrera());
+			valores.put("CODESCUELA", carreras.getCodEscuela());
+			valores.put("NOMBRECARRERA", carreras.getNombreCarrera());
+			contador = db.insert("CARRERAS", null, valores);
+
+			// Cerrando base de datos
+			db.close();
+
+			if (contador == -1 || contador == 0) {
+				registrosInsertados = "Error al Insertar el registro, Registro"
+						+ "Duplicado. Verificar inserción";
+			} else {
+				registrosInsertados = registrosInsertados + contador;
+			}
+			return registrosInsertados;
+		}
+
+		return "La Base de Datos no existe";
+	}
+
+	public String insertar(EncargadoDeServicioSocial encargado) {
+		// Abriendo base de datos
+		SQLiteDatabase db = getWritableDatabase();
+		// Variables para controlar los registros insertados
+		long contador = 0;
+		String registrosInsertados = "Registro insertado # = ";
+
+		if (db != null) {
+			ContentValues valores = new ContentValues();
+			valores.put("CARNETEMPLEADO", encargado.getCarnetEmpleado());
+			valores.put("CODESCUELA", encargado.getCodEscuela());
+			valores.put("NOMBREDIRECTOR", encargado.getNombreDirector());
+			valores.put("APELLIDODIRECTOR", encargado.getApellidoDirector());
+			valores.put("SEXODIRECTOR", encargado.getSexoDirector());
+			valores.put("FECHAINICIO", encargado.getFechaInicio());
+			valores.put("FECHAFIN", encargado.getFechaFin());
+			contador = db.insert("DIRECTORSS", null, valores);
+
+			// Cerrando base de datos
+			db.close();
+
+			if (contador == -1 || contador == 0) {
+				registrosInsertados = "Error al Insertar el registro, Registro"
+						+ "Duplicado. Verificar inserción";
+			} else {
+				registrosInsertados = registrosInsertados + contador;
+			}
+			return registrosInsertados;
+		}
+
+		return "La Base de Datos no existe";
+	}
+
+	public String insertar(Escuela escuela) {
+		// Abriendo base de datos
+		SQLiteDatabase db = getWritableDatabase();
+		// Variables para controlar los registros insertados
+		long contador = 0;
+		String registrosInsertados = "Registro insertado # = ";
+
+		if (db != null) {
+			ContentValues valores = new ContentValues();
+			valores.put("CODESCUELA", escuela.getCodEscuela());
+			valores.put("NOMBREESCUELA", escuela.getNombreEscuela());
+			contador = db.insert("ESCUELA", null, valores);
+
+			// Cerrando base de datos
+			db.close();
+
+			if (contador == -1 || contador == 0) {
+				registrosInsertados = "Error al Insertar el registro, Registro"
+						+ "Duplicado. Verificar inserción";
+			} else {
+				registrosInsertados = registrosInsertados + contador;
+			}
+			return registrosInsertados;
+		}
+
+		return "La Base de Datos no existe";
+	}
+
+	public String insertar(Informe informe) {
+		// Abriendo base de datos
+		SQLiteDatabase db = getWritableDatabase();
+		// Variables para controlar los registros insertados
+		long contador = 0;
+		String registrosInsertados = "Registro insertado # = ";
+
+		if (db != null) {
+			ContentValues valores = new ContentValues();
+			valores.put("CODIGOTUTOR", informe.getCodigoTutor());
+			valores.put("IDEXPEDIENTE", informe.getIdExpediente());
+			valores.put("CORRINFORME", informe.getCorrInforme());
+			valores.put("FECHAENTREGA", informe.getFechaEntrega());
+			valores.put("FECHAAUTORIZACION", informe.getFechaAutorizacion());
+			valores.put("OBJETIVOALCANZADO", informe.getObjetivoAlcanzado());
+			valores.put("COMENTARIOS", informe.getComentarios());
+			valores.put("TIPOINFORME", informe.getTipoInforme());
+			valores.put("ESTADO", informe.getEstado());
+			contador = db.insert("INFORME", null, valores);
+
+			// Cerrando base de datos
+			db.close();
+
+			if (contador == -1 || contador == 0) {
+				registrosInsertados = "Error al Insertar el registro, Registro"
+						+ "Duplicado. Verificar inserción";
+			} else {
+				registrosInsertados = registrosInsertados + contador;
+			}
+			return registrosInsertados;
+		}
+
+		return "La Base de Datos no existe";
+	}
+
+	public String insertar(Precios precios) {
+		// Abriendo base de datos
+		SQLiteDatabase db = getWritableDatabase();
+		// Variables para controlar los registros insertados
+		long contador = 0;
+		String registrosInsertados = "Registro insertado # = ";
+
+		if (db != null) {
+			ContentValues valores = new ContentValues();
+			valores.put("CORR", precios.getCorr());
+			valores.put("IDTIPODETRABAJO", precios.getIdTipoDeTrabajo());
+			valores.put("PRECIO", precios.getPrecio());
+			valores.put("FECHAINICIALAPLIPRE", precios.getFechaInicialApliPre());
+			valores.put("FECHAFINALAPLIPRE", precios.getFechaFinalApliPre());
+			valores.put("OBSERVACION", precios.getObservacion());
+			contador = db.insert("PRECIOS", null, valores);
+
+			// Cerrando base de datos
+			db.close();
+
+			if (contador == -1 || contador == 0) {
+				registrosInsertados = "Error al Insertar el registro, Registro"
+						+ "Duplicado. Verificar inserción";
+			} else {
+				registrosInsertados = registrosInsertados + contador;
+			}
+			return registrosInsertados;
+		}
+
+		return "La Base de Datos no existe";
+	}
+
+	public String insertar(Proyecto proyecto) {
+		// Abriendo base de datos
+		SQLiteDatabase db = getWritableDatabase();
+		// Variables para controlar los registros insertados
+		long contador = 0;
+		String registrosInsertados = "Registro insertado # = ";
+
+		if (db != null) {
+			ContentValues valores = new ContentValues();
+			valores.put("IDPROYECTO", proyecto.getIdProyecto());
+			valores.put("IDBENEFICIARIO", proyecto.getIdBeneficiario());
+			valores.put("IDTIPOPROYECTO", proyecto.getIdTipoProyecto());
+			valores.put("CARNETEMPLEADO", proyecto.getCarnetEmpleado());
+			valores.put("IDTIPODETRABAJO", proyecto.getIdTipoDeTrabajo());
+			valores.put("NOMBREDEPROYECTO", proyecto.getNombreDeProyecto());
+			valores.put("DESCRIPCIONPROYECTO", proyecto.getDescripcionProyecto());
+			valores.put("DURACIONPROYECTO", proyecto.getDuracionProyecto());
+			valores.put("FECHAINICIOPROY", proyecto.getFechaInicioProy());
+			valores.put("FECHAFINPROY", proyecto.getFechaFinProy());
+			valores.put("ESTADOPROYECTO", proyecto.getEstadoProyecto());
+			valores.put("ESTADOASIGNACION", proyecto.getEstadoAsignacion());
+			valores.put("VALORPROYECTO", proyecto.getValorProyecto());
+			contador = db.insert("PROYECTO", null, valores);
+
+			// Cerrando base de datos
+			db.close();
+
+			if (contador == -1 || contador == 0) {
+				registrosInsertados = "Error al Insertar el registro, Registro"
+						+ "Duplicado. Verificar inserción";
+			} else {
+				registrosInsertados = registrosInsertados + contador;
+			}
+			return registrosInsertados;
+		}
+		return "La Base de Datos no existe";
+	}
+	
+	public String insertar(Registro registro) {
+		// Abriendo base de datos
+		SQLiteDatabase db = getWritableDatabase();
+		// Variables para controlar los registros insertados
+		long contador = 0;
+		String registrosInsertados = "Registro insertado # = ";
+
+		if (db != null) {
+			ContentValues valores = new ContentValues();
+			valores.put("IDPROYECTO", registro.getIdProyecto());
+			valores.put("IDEXPEDIENTE", registro.getIdExpediente());
+			valores.put("IDBITACORA", registro.getIdBitacora());
+			valores.put("HORAINICIO", registro.getHoraInicio());
+			valores.put("HORAFIN", registro.getHoraFin());
+			valores.put("FECHAACTIVIDAD", registro.getFechaActividad());
+			valores.put("CANTIDADHORAS", registro.getCantidadHoras());
+			contador = db.insert("ESCUELA", null, valores);
+
+			// Cerrando base de datos
+			db.close();
+
+			if (contador == -1 || contador == 0) {
+				registrosInsertados = "Error al Insertar el registro, Registro"
+						+ "Duplicado. Verificar inserción";
+			} else {
+				registrosInsertados = registrosInsertados + contador;
+			}
+			return registrosInsertados;
+		}
+
+		return "La Base de Datos no existe";
+	}
+	
+	public String insertar(TipoDeProyecto tipoDeProyecto) {
+		// Abriendo base de datos
+		SQLiteDatabase db = getWritableDatabase();
+		// Variables para controlar los registros insertados
+		long contador = 0;
+		String registrosInsertados = "Registro insertado # = ";
+
+		if (db != null) {
+			ContentValues valores = new ContentValues();
+			valores.put("IDTIPOPROYECTO", tipoDeProyecto.getIdTipoProyecto());
+			valores.put("MODALIDADPROYECTO",tipoDeProyecto.getModalidadProyecto());
+			contador = db.insert("TIPO_DE_PROYECTO", null, valores);
+
+			// Cerrando base de datos
+			db.close();
+
+			if (contador == -1 || contador == 0) {
+				registrosInsertados = "Error al Insertar el registro, Registro"
+						+ "Duplicado. Verificar inserción";
+			} else {
+				registrosInsertados = registrosInsertados + contador;
+			}
+			return registrosInsertados;
+		}
+
+		return "La Base de Datos no existe";
+	}
+
+	public String insertar(TipoDeTrabajo tipoDeTrabajo) {
+		// Abriendo base de datos
+		SQLiteDatabase db = getWritableDatabase();
+		// Variables para controlar los registros insertados
+		long contador = 0;
+		String registrosInsertados = "Registro insertado # = ";
+
+		if (db != null) {
+			ContentValues valores = new ContentValues();
+			valores.put("IDTIPODETRABAJO", tipoDeTrabajo.getIdTipoDeTrabajo());
+			valores.put("NOMBRETIPO", tipoDeTrabajo.getNombreTipo());
+			contador = db.insert("TIPO_DE_TRABAJO", null, valores);
+
+			// Cerrando base de datos
+			db.close();
+
+			if (contador == -1 || contador == 0) {
+				registrosInsertados = "Error al Insertar el registro, Registro"
+						+ "Duplicado. Verificar inserción";
+			} else {
+				registrosInsertados = registrosInsertados + contador;
+			}
+			return registrosInsertados;
+		}
+
+		return "La Base de Datos no existe";
+	}
+
+	public String insertar(Tutor tutor) {
+		// Abriendo la base de datos
+		SQLiteDatabase db = getWritableDatabase();
+
+		// Variables para controlar los registros insertados
+		long contador = 0;
+		String registrosInsertados = "Registros insertado # = ";
+
+		if (db != null) {
+			ContentValues valores = new ContentValues();
+			valores.put("CODIGOTUTOR", tutor.getCodigoTutor());
+			valores.put("IDBENEFICIARIO", tutor.getIdBeneficiario());
+			valores.put("NOMBRETUTOR", tutor.getNombreTutor());
+			valores.put("APELLIDOTUTOR", tutor.getApellidoTutor());
+			valores.put("SEXOTUTOR", tutor.getSexoTutor());
+			contador = db.insert("TUTOR", null, valores);
+			// Cerrando base de datos
+			db.close();
+
+			if (contador == -1 || contador == 0) {
+				registrosInsertados = "Error al Insertar el registro, Registro"
+						+ "Duplicado. Verificar inserción";
+			} else {
+				registrosInsertados = registrosInsertados + contador;
+			}
+			return registrosInsertados;
+		}
+		return "La Base de Datos no existe";
+	}
 	// FIN de funciones de inserción de datos
 
+	
 	// Funciones de actualización de datos
 
+	
 	// FIN de funciones de actualización de datos
 
 	// Funciones de eliminación de datos
