@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="sv.ues.fia.serviciosocialfia"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="sv.ues.fia.serviciosocialfia.ServicioSocialActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="sv.ues.fia.serviciosocialfia.GestionDeEstudiantesActivity"
+            android:label="@string/title_activity_gestion_de_estudiantes" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.serviciosocialfia.GestionDeProyectosActivity"
+            android:label="@string/title_activity_gestion_de_proyectos" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.serviciosocialfia.DirectorMenuActivity"
+            android:label="@string/title_activity_director_menu" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.serviciosocialfia.EstudianteMenunActivity"
+            android:label="@string/title_activity_estudiante_menun" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.serviciosocialfia.TutorMenuActivity"
+            android:label="@string/title_activity_tutor_menu" >
+        </activity>
+    </application>
+
+</manifest>

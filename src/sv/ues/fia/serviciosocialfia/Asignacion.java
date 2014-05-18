@@ -1,0 +1,5 @@
+package sv.ues.fia.serviciosocialfia;
+
+public class Asignacion {
+
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ServicioSocialFIA</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_gestion_de_estudiantes">Gestión de estudiantes</string>
+    <string name="title_activity_gestion_de_proyectos">Gestión de proyectos</string>
+    <string name="title_activity_director_menu">Director: Menú</string>
+    <string name="title_activity_estudiante_menun">Estudiante: Menú</string>
+    <string name="title_activity_tutor_menu">Tutor: Menú</string>
+
+</resources>
