@@ -3,7 +3,7 @@ package sv.ues.fia.serviciosocialfia;
 public class Precios {
 	
 	private String idTipoDeTrabajo;
-	private String corr;
+	private int corr;
 	private float precio;
 	private String fechaInicialApliPre;
 	private String fechaFinalApliPre;
@@ -13,7 +13,7 @@ public class Precios {
 		
 	}
 
-	public Precios(String idTipoDeTrabajo, String corr, float precio,
+	public Precios(String idTipoDeTrabajo, int corr, float precio,
 			String fechaInicialApliPre, String fechaFinalApliPre,
 			String observacion) {
 		super();
@@ -33,11 +33,11 @@ public class Precios {
 		this.idTipoDeTrabajo = idTipoDeTrabajo;
 	}
 
-	public String getCorr() {
+	public int getCorr() {
 		return corr;
 	}
 
-	public void setCorr(String corr) {
+	public void setCorr(int corr) {
 		this.corr = corr;
 	}
 

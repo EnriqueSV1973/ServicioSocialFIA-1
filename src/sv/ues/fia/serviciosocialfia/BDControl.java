@@ -97,16 +97,16 @@ public class BDControl extends SQLiteOpenHelper {
 			+ "COMENTARIOS          CHAR(50),"
 			+ "TIPOINFORME          CHAR(1)              not null,"
 			+ "ESTADO               CHAR(2)              not null,"
-			+ "constraint PK_INFORME primary key (IDEXPEDIENTE, CODIGOTUTOR));";
+			+ "constraint PK_INFORME primary key (CORRINFORME));";
 
 	// TABLA: PRECIOS
 	private static final String TABLA_PRECIOS = "create table PRECIOS "
 			+ "(IDTIPODETRABAJO     CHAR(10)             not null,"
-			+ "CORR                 CHAR(2),"
+			+ "CORR                 INTEGER              not null,"
 			+ "PRECIO               FLOAT                not null,"
 			+ "FECHAINICIALAPLIPRE  CHAR(10)             not null,"
 			+ "FECHAFINALAPLIPRE    CHAR(10) ," + "OBSERVACION          CHAR(25),"
-			+ "constraint PK_PRECIOS primary key (IDTIPODETRABAJO));";
+			+ "constraint PK_PRECIOS primary key (CORR));";
 
 	// TABLA: PROYECTO
 	private static final String TABLA_PROYECTO = "create table PROYECTO "

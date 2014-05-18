@@ -58,6 +58,10 @@ public class ServicioSocialActivity extends ListActivity {
 
 		}
 		//Fin del menú de los roles.
+		
+		//TODO ESTO COMENTADO DE ABAJO DEBE  SEGUIR ASÍ HASTA
+		//QUE PROGRAME LOS MÉTODOS DEL CRUD. POR TANTO, AÚN
+		//NO SE PUEDE INTERACTUAR CON LA BASE. ESPERARDME UN POCO MÁS.
 
 		// //Código provisional para llenar la BD y hacer pruebas
 		// if(position == 3){
