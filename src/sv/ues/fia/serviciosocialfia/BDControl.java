@@ -117,7 +117,7 @@ public class BDControl extends SQLiteOpenHelper {
 			+ "IDTIPODETRABAJO      CHAR(10)             not null,"
 			+ "NOMBREDEPROYECTO     CHAR(100)            not null,"
 			+ "DESCRIPCIONPROYECTO  CHAR(100)            not null,"
-			+ "DURACIONPROYECTO     FLOAT,"
+			+ "DURACIONPROYECTO     INTEGER,"
 			+ "FECHAINICIOPROY      CHAR(10)             not null,"
 			+ "FECHAFINPROY         CHAR(10) ,"
 			+ "ESTADOPROYECTO       CHAR(1)              not null,"
