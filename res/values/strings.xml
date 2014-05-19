@@ -9,5 +9,10 @@
     <string name="title_activity_director_menu">Director: Menú</string>
     <string name="title_activity_estudiante_menun">Estudiante: Menú</string>
     <string name="title_activity_tutor_menu">Tutor: Menú</string>
+    <string name="menu_buscar">Búscar</string>
+    <string name="menu_cortar">Cortar</string>
+    <string name="menu_copiar">Copiar</string>
+    <string name="menu_eliminar">Eliminar</string>
+    <string name="menu_compartir">Compartir</string>
 
 </resources>

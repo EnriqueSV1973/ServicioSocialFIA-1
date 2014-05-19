@@ -19,7 +19,7 @@ public class ServicioSocialActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setListAdapter(new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, roles));
-	}
+			}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -74,13 +74,13 @@ public class ServicioSocialActivity extends ListActivity {
 			 alumExpediente.setSexoAlumno("M");
 			 alumExpediente.setTelefono("000000");
 			 alumExpediente.setValorServicio(120);
-			
+
 			 //Abriré la BD
 			 BDControl db = new BDControl(getApplicationContext());
 			 //Ingreso datos
 			 String registrosInsertados = db.insertar(alumExpediente);
 			 Toast.makeText(this,registrosInsertados,Toast.LENGTH_SHORT).show();
-			
+
 			 //Ingreso de un segundo registro
 			 alumExpediente.setApellidoAlumno("Trujillo");
 			 alumExpediente.setCarnetAlumno("yy124405");
@@ -99,10 +99,10 @@ public class ServicioSocialActivity extends ListActivity {
 			 alumExpediente.setSexoAlumno("M");
 			 alumExpediente.setTelefono("000000");
 			 alumExpediente.setValorServicio(120);
-			
+
 			 registrosInsertados = db.insertar(alumExpediente);
 			 Toast.makeText(this,registrosInsertados,Toast.LENGTH_SHORT).show();
-			
+
 			 //Ingreso de un tercer registro
 			 alumExpediente.setApellidoAlumno("Pleitez");
 			 alumExpediente.setCarnetAlumno("ER79880");
@@ -121,10 +121,10 @@ public class ServicioSocialActivity extends ListActivity {
 			 alumExpediente.setSexoAlumno("M");
 			 alumExpediente.setTelefono("0000040");
 			 alumExpediente.setValorServicio(120);
-			
+
 			 registrosInsertados = db.insertar(alumExpediente);
 			 Toast.makeText(this,registrosInsertados,Toast.LENGTH_SHORT).show();
-			
+
 			 //Cerraré la BD
 			 db.close();
 
@@ -156,7 +156,7 @@ public class ServicioSocialActivity extends ListActivity {
 //			 db.close();
 //			
 //			 Toast.makeText(this,registrosInsertados,Toast.LENGTH_SHORT).show();
-			 
+
 			 //Elimnaré un registro de ALUMNOEXPEDIENTE
 			 alumExpediente.setCarnetAlumno("RR77880");
 			 //Abriré la BD
@@ -164,7 +164,7 @@ public class ServicioSocialActivity extends ListActivity {
 			 //Eliminando el registro con el respectivo carnet de alumno.
 			 String registrosEliminados = db.eliminar(alumExpediente);
 			 Toast.makeText(this,registrosEliminados,Toast.LENGTH_SHORT).show();
-			 
+
 			 //Cerrando la BD.
 			 db.close();
 		}
