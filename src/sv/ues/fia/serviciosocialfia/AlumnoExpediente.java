@@ -1,5 +1,10 @@
 package sv.ues.fia.serviciosocialfia;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class AlumnoExpediente {
 
 	private String idExpediente;
@@ -185,5 +190,130 @@ public class AlumnoExpediente {
 	public void setFechaAcumula(String fechaAcumula) {
 		this.fechaAcumula = fechaAcumula;
 	}
+	public static boolean esEmailValido(String email) {
+		boolean isValid = false;
 
+		String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+		CharSequence inputStr = email;
+
+		Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+		Matcher matcher = pattern.matcher(inputStr);
+		if (matcher.matches()) {
+			isValid = true;
+		}
+		return isValid;
+	}
+
+	public boolean validarFecha(String fecha) {
+		boolean resultado = true;
+		if (fecha == null)
+			resultado = false;
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy",
+				Locale.getDefault());
+		if (fecha.trim().length() != dateFormat.toPattern().length())
+			resultado = false;
+		// dateFormat.setLenient(false);
+		return resultado;
+	}
+
+	public String validaciones(String carnetAlumno, String nombreAlumno,
+			String apellidoAlumno, String fechaInicioServicio, String telefono,
+			String email) {
+		String evaluacion = "";
+		if (carnetAlumno.length() != 7) {
+			evaluacion = "El carnet debe ser de 7 caracteres";
+		}
+		if (nombreAlumno.length() < 3) {
+			if (evaluacion == "") {
+				evaluacion = "El nombre debe ser de 3 caracteres";
+			} else {
+				evaluacion = evaluacion
+						+ ",el nombre debe ser de 3 o más caracteres";
+			}
+		}
+		if (apellidoAlumno.length() < 3) {
+			if (evaluacion == "") {
+				evaluacion = "El apellido debe ser de 3 o más caracteres";
+			} else {
+				evaluacion = evaluacion
+						+ ",el apellido debe ser de 3 o más caracteres";
+			}
+		}
+		if (!validarFecha(fechaInicioServicio)) 
+			{
+				if (evaluacion == "") {
+					evaluacion = "La fecha debe ser en formato dd/mm/aa";
+				} else {
+					evaluacion = evaluacion
+							+ ", la fecha debe ser en formato dd/mm/aa";
+				}
+
+			}
+			if (!(telefono.length() == 8)) {
+				if (evaluacion == "") {
+					evaluacion = "El teléfono debe ser de 8 números sin guiones";
+				} else {
+					evaluacion = evaluacion
+							+ ",el teléfono debe ser de 8 números sin guiones";
+				}
+			}
+			if (!esEmailValido(email))
+			{
+				if (evaluacion == "") {
+					evaluacion = "El email no es válido";
+				} else {
+					evaluacion = evaluacion
+							+ ", el email no es válido";
+				}
+			}	
+		return evaluacion;
+	}
+
+	public String validaciones(String carnetAlumno, String nombreAlumno,
+			String apellidoAlumno, String fechaInicioServicio, String telefono,
+			String email,String genero,String fechaFinServicio,String estadoExpediente,int horasAcumula) {
+		String evaluacion = validaciones(carnetAlumno,nombreAlumno,apellidoAlumno,fechaInicioServicio,telefono,email);
+		if (!((genero=="F"|| genero=="M"))) {
+			if (evaluacion == "") {
+				evaluacion = "El genero debe ser F=Femenino o M=Masculino";
+			} else {
+				evaluacion = evaluacion
+						+ ",El genero debe ser F=Femenino o M=Masculino";
+			}
+		}
+		if (!(fechaFinServicio=="00/00/00")) {
+			if (!validarFecha(fechaFinServicio)) 
+			{
+				if (evaluacion == "") {
+					evaluacion = "La fecha debe ser en formato dd/mm/aa o ser 00/00/00";
+				} else {
+					evaluacion = evaluacion
+							+ ", la fecha debe ser en formato dd/mm/aa o ser 00/00/00";
+				}
+			}
+		}
+		if (!((estadoExpediente=="A"|| estadoExpediente=="T"|| estadoExpediente=="S"))) {
+			if (evaluacion == "") {
+				evaluacion = "El estado debe ser A: Activo, T: Terminado, S: Suspendido";
+			} else {
+				evaluacion = evaluacion
+						+ ",El estado debe ser A: Activo, T: Terminado, S: Suspendido";
+			}
+				
+		}
+		else
+		{
+			if (((estadoExpediente=="T"&& horasAcumula<500))) {
+				if (evaluacion == "") {
+					evaluacion = "El estado no puede ser A: Activo, porque tiene menos de 500 horas";
+				} else {
+					evaluacion = evaluacion
+							+ ",el estado no puede ser A: Activo, porque tiene menos de 500 horas";
+				}
+					
+			}			
+		}
+		return evaluacion;
+	}
+	
 }

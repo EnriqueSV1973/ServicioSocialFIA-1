@@ -1,0 +1,119 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="10dp"
+    tools:context=".CrearExpedienteActivity">
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/editTxtInsertCarrAlumno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:ems="10"
+                android:hint="@string/BlCrearCodCarrera"
+                android:text="@string/BlCrearCodCarrera" />
+
+            <EditText
+                android:id="@+id/editTxtInsertCarnetAlumno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/BlCrearCarnet" />
+
+            <EditText
+                android:id="@+id/editTxtInsertNomAlumno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/BlCrearNombreAlumno"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editTxtInsertApeAlumno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/BlCrearApellidoAlumno"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editTxtInsertTelInAlumno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/BlCrearTelefonoAlumno"
+                android:inputType="phone" >
+
+                <requestFocus />
+            </EditText>
+
+            <EditText
+                android:id="@+id/editTxtInsertEmailAlumno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/BlCrearEmailAlumno"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/editTxtInsertFechaInAlumno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/BlCrearFechaInicioAlumno"
+                android:inputType="date" />
+
+            <TextView
+                android:id="@+id/TextView01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/BlCrearSexoAlumno"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/radGenAlMas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/BlGeneroMasculino" />
+
+                <RadioButton
+                    android:id="@+id/radGenAlFem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/BlGeneroFemenino" />
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/editTxtInsertObsAlumno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="17dp"
+                android:ems="10"
+                android:hint="@string/BlCrearObservacionesAlumno"
+                android:inputType="textAutoCorrect|textMultiLine" />
+
+            <Button
+                android:id="@+id/btnLimpAlumn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="limpiarTexto"
+                android:text="@string/BlBtnLimpiar" />
+
+            <Button
+                android:id="@+id/btnRecAlumn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="insertarAlumno"
+                android:text="@string/BlBtnAceptar" />
+        </LinearLayout>
+    </ScrollView>

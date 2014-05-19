@@ -9,10 +9,29 @@
     <string name="title_activity_director_menu">Director: Menú</string>
     <string name="title_activity_estudiante_menun">Estudiante: Menú</string>
     <string name="title_activity_tutor_menu">Tutor: Menú</string>
-    <string name="menu_buscar">Búscar</string>
-    <string name="menu_cortar">Cortar</string>
-    <string name="menu_copiar">Copiar</string>
-    <string name="menu_eliminar">Eliminar</string>
-    <string name="menu_compartir">Compartir</string>
+    <string name="title_activity_crear_expediente">Crear expediente de alumno</string>
+    <string name="BlCrearCarnetEmpleado">Codigo de empleado que lo creo</string>
+    <string name="BlCrearCodCarrera">Ing. de Sistemas Informáticos</string>
+    <string name="BlCrearCarnet">Carnet del alumno</string>
+        <string name="BlActualizarCarnet">Digite el Carnet del alumno para buscar</string>
+    <string name="BlCrearNombreAlumno">Nombre del alumno</string>
+    <string name="BlCrearApellidoAlumno">Apellido del alumno</string>
+    <string name="BlCrearSexoAlumno">Seleccione el sexo</string>
+    <string name="BlCrearFechaInicioAlumno">Fecha Inicio Servicio</string>
+    <string name="BlCrearFechaFinAlumno">Fecha Fin de servicio</string>    
+    <string name="BlCrearEstadoExpediente">Estado de alumno</string>
+    <string name="BlCrearTelefonoAlumno">Telefono del alumno</string>
+    <string name="BlCrearEmailAlumno">Email del Alumno</string>
+    <string name="BlCrearObservacionesAlumno">Observaciones </string>
+    <string name="BlGeneroMasculino">Masculino </string>
+    <string name="BlGeneroFemenino">Femenino</string>
+        <string name="BlGenero">Genero </string>
+                <string name="BlEstadoExpediente">Estado del expediente </string>
+    <string name="BlBtnAceptar">Crear       </string>
+        <string name="BlBtnRecuperar">Recuperar Datos       </string>
+        <string name="BlBtnActualizar">Actualizar </string>
+    <string name="BlBtnLimpiar">Borrar Datos</string>
+    <string name="BltxtCarrera">Ing. de Sistemas</string>
+    <string name="title_activity_modificar_expediente">ModificarExpedienteActivity</string>
 
 </resources>
